@@ -4,6 +4,12 @@ MAINTAINER madevil
 
 # Set correct environment variables
 ENV DEBIAN_FRONTEND noninteractive
+
+ENV MADSONIC madsonic
+ENV MADSONIC_VERSION 6.0
+ENV MADSONIC_BUILD 6870
+ENV MADSONIC_DATE 20150724
+
 ENV HOME            /root
 ENV LC_ALL          C.UTF-8
 ENV LANG            en_US.UTF-8
@@ -19,15 +25,13 @@ RUN usermod -g 100 nobody
 # recheck updates
 RUN apt-get update -q
 
-RUN apt-get install -y wget
-
 # install dependencies for madsonic
-RUN apt-get install -qy wget openjdk-7-jre unzip
+RUN apt-get install -qy unzip wget openjdk-7-jre
 RUN apt-get clean
 
 # install madsonic
-RUN wget http://madsonic.org/download/6.0/20150724_madsonic-6.0.6870.deb
-RUN dpkg -i 20150724_madsonic-6.0.6870.deb
+ADD http://madsonic.org/download/$MADSONIC_VERSION/$MADSONIC_DATE_$MADSONIC-$MADSONIC_VERSION.$MADSONIC_BUILD.deb /tmp/madsonic.deb
+RUN dpkg -i /tmp/subsonic.deb && rm -f /tmp/*.deb
 
 # default http https port
 EXPOSE 4040 4050
