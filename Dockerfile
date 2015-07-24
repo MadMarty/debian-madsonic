@@ -11,7 +11,7 @@ ENV MADSONIC_BUILD 6870
 ENV MADSONIC_DATE 20150724
 
 ENV HOME            /root
-ENV LC_ALL          C.UTF-8
+ENV LC_ALL          en_US.UTF-8
 ENV LANG            en_US.UTF-8
 ENV LANGUAGE        en_US.UTF-8
 
@@ -26,7 +26,7 @@ RUN usermod -g 100 nobody
 RUN apt-get update -q
 
 # install dependencies for madsonic
-RUN apt-get install -qy unzip wget openjdk-7-jre
+RUN apt-get install -qy unzip wget openjdk-7-jre locales
 RUN apt-get clean
 
 # install madsonic
