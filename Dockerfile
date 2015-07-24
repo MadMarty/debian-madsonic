@@ -26,11 +26,11 @@ RUN usermod -g 100 nobody
 RUN apt-get update -q
 
 # install dependencies for madsonic
-RUN apt-get install -qy unzip wget openjdk-7-jre locales
+RUN apt-get install -qqy unzip wget openjdk-7-jre locales
 RUN apt-get clean
 
 # install madsonic
-ADD http://madsonic.org/download/$MADSONIC_VERSION/$MADSONIC_DATE_$MADSONIC-$MADSONIC_VERSION.$MADSONIC_BUILD.deb /tmp/madsonic.deb
+RUN wget http://madsonic.org/download/6.0/20150724_madsonic-6.0.6870.deb /tmp/madsonic.deb
 RUN dpkg -i /tmp/madsonic.deb && rm -f /tmp/*.deb
 
 # default http https port
