@@ -31,7 +31,7 @@ RUN apt-get clean
 
 # install madsonic
 ADD http://madsonic.org/download/$MADSONIC_VERSION/$MADSONIC_DATE_$MADSONIC-$MADSONIC_VERSION.$MADSONIC_BUILD.deb /tmp/madsonic.deb
-RUN dpkg -i /tmp/subsonic.deb && rm -f /tmp/*.deb
+RUN dpkg -i /tmp/madsonic.deb && rm -f /tmp/*.deb
 
 # default http https port
 EXPOSE 4040 4050
