@@ -19,6 +19,8 @@ RUN usermod -g 100 nobody
 # recheck updates
 RUN apt-get update -q
 
+RUN apt-get install -y wget
+
 # install dependencies for madsonic
 RUN apt-get install -qy openjdk-7-jre unzip
 RUN apt-get clean
