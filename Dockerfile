@@ -51,3 +51,4 @@ RUN chmod -R 777 /var/madsonic/transcode/
 RUN mkdir /etc/service/madsonic
 ADD madsonic.sh /etc/service/madsonic/run
 RUN chmod +x /etc/service/madsonic/run
+
