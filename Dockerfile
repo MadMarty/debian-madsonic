@@ -1,18 +1,17 @@
 FROM debian:jessie
-
 MAINTAINER madevil
 
-# Set correct environment variables
+# Let the container know that there is no tty
 ENV DEBIAN_FRONTEND noninteractive
-
 ENV HOME /root
 
-ENV MADSONIC madsonic
-ENV MADSONIC_VERSION 6.0
-ENV MADSONIC_BUILD 6870
-ENV MADSONIC_DATE 20150724
+# Madsonic Package Information
+ENV PKG_NAME madsonic
+ENV PKG_VERS 6.0
+ENV PKG_BUILD 6870
+ENV PKG_DATE 20150724
 
-
+# Set Locale
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
@@ -24,16 +23,41 @@ CMD ["/sbin/my_init"]
 RUN usermod -u 99 nobody
 RUN usermod -g 100 nobody
 
-# recheck updates
-RUN apt-get update -q
+# Add Oracle Java8 Repo
+RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" >> /etc/apt/sources.list.d/webupd8team-java.list \
+  && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys EEA14886 \
+  && echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
 
-# install dependencies for madsonic
-RUN apt-get install -qqy wget openjdk-7-jre default-jre-headless default-jre unzip locales
-RUN apt-get clean
+# Install apt packages
+RUN apt-get update && apt-get install -y \
+  ca-certificates \
+  locales \
+  oracle-java8-installer \
+  oracle-java8-set-default \
+  unzip \
+  wget
 
-# install madsonic
-ADD http://www.madsonic.org/download/6.0/20150724_madsonic-6.0.6870.deb /tmp/madsonic.deb
-RUN dpkg -i /tmp/madsonic.deb && rm -f /tmp/*.deb
+# download madsonic
+RUN mkdir -p /var/madsonic/transcode \
+  && wget -O /var/madsonic/madsonic.zip http://www.madsonic.org/download/${PKG_VER}/${PKG_DATE}_${PKG_NAME}-${PKGVER}.${PKG_BUILD}-standalone.zip \
+  && wget -O /var/madsonic/transcode/transcode.zip http://www.madsonic.org/download/transcode/${PKG_DATE}_${PKG_NAME}-transcode_x64.zip
+
+# Install Madsonic
+RUN mkdir -p /var/madsonic/transcode \
+  && unzip /var/madsonic/madsonic.zip -d /var/madsonic \
+  && unzip /var/madsonic/transcode/transcode.zip -d /var/madsonic/transcode \
+  && chown -R nobody:users /var/madsonic \
+  && chmod -R 755 /var/madsonic \
+  && rm /var/madsonic/madsonic.zip \
+  && rm /var/madsonic/transcode/transcode.zip
+
+# Force Madsonic to run in foreground
+RUN sed -i 's/-jar madsonic-booter.jar > \${LOG} 2>\&1 \&/-jar madsonic-booter.jar > \${LOG} 2>\&1/g' /var/madsonic/madsonic.sh
+
+ # apt clean
+RUN apt-get clean \
+  && rm -rf /var/lib/apt/lists/* \
+  && rm -rf /tmp/*
 
 # default http https port
 EXPOSE 4040 4050
@@ -44,12 +68,6 @@ VOLUME /config
 # media directory
 VOLUME /media
 
-# set security
-RUN chown -R nobody:users /var/madsonic
-RUN chown -R nobody:users /var/madsonic/transcode/
-RUN chmod -R 777 /var/madsonic/transcode/
-
-# Add madsonic to runit
-RUN mkdir /etc/service/madsonic
-ADD madsonic.sh /etc/service/madsonic/run
-RUN chmod +x /etc/service/madsonic/run
+# Run Program
+USER nobody
+ENTRYPOINT ["/start.sh"]
