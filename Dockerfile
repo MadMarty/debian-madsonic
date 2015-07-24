@@ -30,7 +30,7 @@ RUN apt-get install -qqy unzip wget openjdk-7-jre locales
 RUN apt-get clean
 
 # install madsonic
-RUN wget http://madsonic.org/download/6.0/20150724_madsonic-6.0.6870.deb /tmp/madsonic.deb
+RUN wget http://www.madsonic.org/download/6.0/20150724_madsonic-6.0.6870.deb /tmp/madsonic.deb
 RUN dpkg -i /tmp/madsonic.deb && rm -f /tmp/*.deb
 
 # default http https port
@@ -51,4 +51,3 @@ RUN chmod -R 777 /var/madsonic/transcode/
 RUN mkdir /etc/service/madsonic
 ADD madsonic.sh /etc/service/madsonic/run
 RUN chmod +x /etc/service/madsonic/run
-
