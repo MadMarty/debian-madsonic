@@ -24,7 +24,7 @@ RUN apt-get install -qy openjdk-7-jre unzip
 RUN apt-get clean
 
 # install madsonic
-RUN wget http://www.madsonic.org/download/6.0/20150724_madsonic-6.0.6870.deb
+RUN wget http://madsonic.org/download/6.0/20150724_madsonic-6.0.6870.deb
 RUN dpkg -i 20150724_madsonic-6.0.6870.deb
 
 # default http https port
