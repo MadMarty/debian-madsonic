@@ -11,13 +11,6 @@ ENV PKG_VER 6.0
 ENV PKG_BUILD 6880
 ENV PKG_DATE 20150725
 
-# Set Locale
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-
-RUN locale-gen en_US en_US.UTF-8
-
 # Use init system
 CMD ["/sbin/my_init"]
 
@@ -60,6 +53,15 @@ RUN sed -i 's/-jar madsonic-booter.jar > \${LOG} 2>\&1 \&/-jar madsonic-booter.j
 RUN apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /tmp/*
+
+# Set Locale
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+
+RUN locale-gen en_US en_US.UTF-8
+RUN dpkg-reconfigure locales 
+
 
 # Copy start.sh script
 ADD start.sh /start.sh
