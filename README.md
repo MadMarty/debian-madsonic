@@ -1,7 +1,7 @@
-debian Madsonic - docker image 
-==============================
+Madsonic Debian Dockerimage 
+===========================
 
-Madsonic - http://www.madsonic.org
+Madsonic http://www.madsonic.org
 
 Latest Beta Release of Madsonic.
 
