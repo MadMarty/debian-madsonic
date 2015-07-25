@@ -76,6 +76,6 @@ USER nobody
 
 # Copy start.sh script
 ADD ./start.sh /start.sh
-RUN chmod u+x  /start.sh
+RUN chmod +x /start.sh
 
 ENTRYPOINT ["/start.sh"]
