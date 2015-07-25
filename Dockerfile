@@ -57,8 +57,6 @@ RUN apt-get clean \
 # Set Locale
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
-ENV LC_ALL c.UTF-8
-
 RUN locale-gen en_US en_US.UTF-8
 RUN dpkg-reconfigure locales 
 
@@ -71,11 +69,10 @@ VOLUME /config
 # media directory
 VOLUME /media
 
-# run App as user
-USER nobody
-
 # Copy start.sh script
 ADD ./start.sh /start.sh
 RUN chmod +x /start.sh
 
+# run App as user
+USER nobody
 ENTRYPOINT ["/start.sh"]
