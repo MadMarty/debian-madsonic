@@ -59,6 +59,9 @@ RUN apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && rm -rf /tmp/*
 
+# Copy start.sh script
+ADD start.sh /start.sh
+
 # default http https port
 EXPOSE 4040 4050
 
