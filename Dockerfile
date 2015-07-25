@@ -7,7 +7,7 @@ ENV HOME /root
 
 # Madsonic Package Information
 ENV PKG_NAME madsonic
-ENV PKG_VERS 6.0
+ENV PKG_VER 6.0
 ENV PKG_BUILD 6880
 ENV PKG_DATE 20150725
 
@@ -39,7 +39,7 @@ RUN apt-get update && apt-get install -y \
 
 # download madsonic
 RUN mkdir -p /var/madsonic/transcode \
-  && wget -O /var/madsonic/madsonic.zip http://www.madsonic.org/download/${PKG_VER}/${PKG_DATE}_${PKG_NAME}-${PKGVER}.${PKG_BUILD}-standalone.zip \
+  && wget -O /var/madsonic/madsonic.zip http://www.madsonic.org/download/${PKG_VER}/${PKG_DATE}_${PKG_NAME}-${PKG_VER}.${PKG_BUILD}-standalone.zip \
   && wget -O /var/madsonic/transcode/transcode.zip http://www.madsonic.org/download/transcode/${PKG_DATE}_${PKG_NAME}-transcode-x64.zip
 
 # Install Madsonic
