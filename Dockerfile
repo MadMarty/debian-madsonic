@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER madevil
+MAINTAINER madsonic (support@madsonic.org)
 
 # Let the container know that there is no tty
 ENV DEBIAN_FRONTEND noninteractive
@@ -8,7 +8,7 @@ ENV HOME /root
 # Madsonic Package Information
 ENV PKG_NAME madsonic
 ENV PKG_VER 6.0
-ENV PKG_BUILD 6880
+ENV PKG_BUILD 6890
 ENV PKG_DATE 20150725
 
 # Use init system
