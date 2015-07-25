@@ -1,5 +1,5 @@
-Madsonic Debian Dockerimage 
-===========================
+Madsonic Debian docker image 
+============================
 
 Madsonic http://www.madsonic.org
 
