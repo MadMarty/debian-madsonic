@@ -35,16 +35,16 @@ RUN apt-get update && apt-get install -y \
 # download madsonic
 RUN mkdir -p /var/madsonic/transcode \
   && wget -O /var/madsonic/madsonic.zip http://www.madsonic.org/download/${PKG_VER}/${PKG_DATE}_${PKG_NAME}-${PKG_VER}.${PKG_BUILD}-standalone.zip \
-  && wget -O /var/madsonic/transcode/transcode.zip http://www.madsonic.org/download/transcode/${PKG_DATE}_${PKG_NAME}-transcode-x64.zip
+  && wget -O /var/madsonic/transcode.zip http://www.madsonic.org/download/transcode/${PKG_DATE}_${PKG_NAME}-transcode-linux-x64.zip
 
 # Install Madsonic
 RUN mkdir -p /var/madsonic/transcode \
   && unzip /var/madsonic/madsonic.zip -d /var/madsonic \
-  && unzip /var/madsonic/transcode/transcode.zip -d /var/madsonic/transcode \
+  && unzip /var/madsonic/transcode.zip -d /var/madsonic \
   && chown -R nobody:users /var/madsonic \
   && chmod -R 755 /var/madsonic \
   && rm /var/madsonic/madsonic.zip \
-  && rm /var/madsonic/transcode/transcode.zip
+  && rm /var/madsonic/transcode.zip
 
 # Force Madsonic to run in foreground
 RUN sed -i 's/-jar madsonic-booter.jar > \${LOG} 2>\&1 \&/-jar madsonic-booter.jar > \${LOG} 2>\&1/g' /var/madsonic/madsonic.sh
