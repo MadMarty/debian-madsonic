@@ -8,8 +8,8 @@ ENV HOME /root
 # Madsonic Package Information
 ENV PKG_NAME madsonic
 ENV PKG_VER 6.0
-ENV PKG_BUILD 7860
-ENV PKG_DATE 20160109
+ENV PKG_BUILD 7960
+ENV PKG_DATE 20160122
 
 # Use init system
 CMD ["/sbin/my_init"]
