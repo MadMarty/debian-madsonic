@@ -55,13 +55,7 @@ RUN apt-get clean \
   && rm -rf /tmp/*
 
 # Set Locale env
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-ENV LANGUAGE en_US.UTF-8
-
-# Set Locale
-RUN locale-gen en_US en_US.UTF-8
-RUN dpkg-reconfigure locales 
+ENV LANG C.UTF-8
 
 # default http https port
 EXPOSE 4040 4050
